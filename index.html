@@ -576,9 +576,11 @@
         if (e.key === 'Escape') closeLightbox();
     });
     
-    if (localStorage.getItem('welcomePopupShown')) {
-        document.getElementById('welcomeOverlay').classList.remove('show');
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('welcomePopupShown')) {
+            document.getElementById('welcomeOverlay').classList.remove('show');
+        }
+    });
 </script>
 </body>
 </html>
