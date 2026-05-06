@@ -274,8 +274,10 @@
             <a href="https://www.farsroid.com/rar-for-android/" target="_blank">farsroid.com</a><br>
             <small>نرم‌افزارهای لازم برای اندروید برای باز کردن فایل‌های دانلود شده</small>
             <hr class="welcome-divider">
-            <strong>Contact me:</strong> +98 912 159 1090<br>
-            <strong>تماس:</strong> ۰۹۱۲۱۵۹۱۰۹۰
+			<strong>Contact me:</strong><br>
+			+98 912 159 1090<br><br>
+			<strong>تماس:</strong><br>
+			۰۹۱۲۱۵۹۱۰۹۰
         </div>
         <button class="welcome-close-btn" onclick="closeWelcomePopup()">Got it / فهمیدم</button>
     </div>
@@ -325,10 +327,14 @@
     let folderHandle = null;
     let galleryData = [];
     
-    function closeWelcomePopup() {
-        document.getElementById('welcomeOverlay').classList.remove('show');
-        localStorage.setItem('welcomePopupShown', 'true');
-    }
+	function closeWelcomePopup() {
+		document.getElementById('welcomeOverlay').classList.remove('show');
+		try {
+			localStorage.setItem('welcomePopupShown', 'true');
+		} catch(e) {
+			console.log('localStorage not available');
+		}
+	}
     
     async function openFolder() {
         try {
@@ -386,7 +392,7 @@
     }
     
     async function getFileByPath(folder, relativePath) {
-        const parts = relativePath.replace(/\/g, '/').split('/');
+        const parts = relativePath.replace(/\\/g, '/').split('/');
         let currentFolder = folder;
         
         for (let i = 0; i < parts.length - 1; i++) {
@@ -576,11 +582,15 @@
         if (e.key === 'Escape') closeLightbox();
     });
     
-    window.addEventListener('DOMContentLoaded', () => {
-        if (localStorage.getItem('welcomePopupShown')) {
-            document.getElementById('welcomeOverlay').classList.remove('show');
-        }
-    });
+	window.addEventListener('DOMContentLoaded', () => {
+		try {
+			if (localStorage.getItem('welcomePopupShown')) {
+				document.getElementById('welcomeOverlay').classList.remove('show');
+			}
+		} catch(e) {
+			console.log('localStorage not available');
+		}
+	});
 </script>
 </body>
 </html>
